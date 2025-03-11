@@ -425,6 +425,8 @@ func TestConfOverrideDefaultSlices(t *testing.T) {
 			"  - user: user1\n" +
 			"  - user: user2\n" +
 			"authHTTPExclude:\n" +
+			"  - path: ''\n" +
+			"authJWTExclude:\n" +
 			"  - path: ''\n"))
 	require.NoError(t, err)
 	defer os.Remove(tmpf)
@@ -444,4 +446,8 @@ func TestConfOverrideDefaultSlices(t *testing.T) {
 	require.Equal(t, AuthInternalUserPermissions{
 		{},
 	}, conf.AuthHTTPExclude)
+
+	require.Equal(t, AuthInternalUserPermissions{
+		{},
+	}, conf.AuthJWTExclude)
 }

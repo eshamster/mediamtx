@@ -178,6 +178,7 @@ type Conf struct {
 	AuthHTTPExclude           AuthInternalUserPermissions `json:"authHTTPExclude"`
 	AuthJWTJWKS               string                      `json:"authJWTJWKS"`
 	AuthJWTClaimKey           string                      `json:"authJWTClaimKey"`
+	AuthJWTExclude            AuthInternalUserPermissions `json:"authJWTExclude"`
 
 	// Control API
 	API               bool       `json:"api"`
@@ -330,6 +331,17 @@ func (conf *Conf) setDefaults() {
 		},
 	}
 	conf.AuthJWTClaimKey = "mediamtx_permissions"
+	conf.AuthJWTExclude = []AuthInternalUserPermission{
+		{
+			Action: AuthActionAPI,
+		},
+		{
+			Action: AuthActionMetrics,
+		},
+		{
+			Action: AuthActionPprof,
+		},
+	}
 
 	// Control API
 	conf.APIAddress = ":9997"
